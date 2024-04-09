@@ -129,24 +129,26 @@ import turtle  # this imports a library called "turtle". A library is (someone e
 # sej_star(100)
 
 # Opgave 5
-# def draw_star(points):
-#     tom = turtle.Turtle()
-#     print(type(tom))
-#     tom.speed(7)
-#     if points % 2 == 0:
-#         for x in range(points):
-#             tom.pencolor("green")
-#             tom.pensize(3)
-#             tom.forward(100)
-#             tom.left(-1080 / points)
-#     else:
-#         for x in range(points):
-#             tom.pencolor("red")
-#             tom.pensize(3)
-#             tom.forward(100)
-#             tom.left(-1080/points)
-#
-#
-#
-#
-# draw_star(13)
+def draw_star(points):
+    tom = turtle.Turtle()
+    print(type(tom))
+    tom.speed(7)
+    if points % 2 == 0:
+        for x in range(points):
+            tom.pencolor("green")
+            tom.pensize(3)
+            tom.forward(100)
+            tom.left(-1080 / points)
+        turtle.done()
+    else:
+        for x in range(points):
+            tom.pencolor("red")
+            tom.pensize(3)
+            tom.forward(100)
+            tom.left(-1080/points)
+        turtle.done()
+
+
+
+
+draw_star(13)
