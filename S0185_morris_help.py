@@ -52,7 +52,7 @@ def eat():
 
 def buy_whiskey():
     morris["sleepiness"] += 5  # update sleepiness
-    morris["thirst"] -= 15  # update thirts
+    morris["thirst"] += 1  # update thirts
     morris["hunger"] += 1  # update hunger
     morris["gold"] -= 1  # update gold
 
@@ -77,11 +77,13 @@ morris = {"turn": 0, "sleepiness": 0, "thirst": 0, "hunger": 0, "whisky": 0, "go
 while not dead() and morris["turn"] < 1000:
     morris["turn"] += 1
     print(morris)
-    if morris["thirst"] > 90:
+    if morris["thirst"] > 80:
+        buy_whiskey()
+        morris["turn"] += 1
         drink()
-    elif morris["sleepiness"] > 90:
+    elif morris["sleepiness"] > 88:
         sleep()
-    elif morris["hunger"] > 90:
+    elif morris["hunger"] > 80:
         eat()
     else:
         mine()
