@@ -22,7 +22,7 @@ buy_whisky: sleepiness+=5,  thirst+=1,  hunger+=1,  whisky+=1, gold-=1
 drink:      sleepiness+=5,  thirst-=15, hunger-=1,  whisky-=1, gold+=0
 
 Din opgave:
-Skriv et program, der giver Morris så meget guld som muligt på 1000 omgange.
+Skriv et program, der giver Morris så meget guld som muligt på 1000 omgange.-
 
 Hvis du går i stå, så spørg google, de andre elever eller læreren (i denne rækkefølge).
 
