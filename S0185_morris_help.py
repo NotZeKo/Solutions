@@ -76,9 +76,14 @@ morris = {"turn": 0, "sleepiness": 0, "thirst": 0, "hunger": 0, "whisky": 0, "go
 
 while not dead() and morris["turn"] < 1000:
     morris["turn"] += 1
-    sleep()
-    mine()
     print(morris)
+    mine()
+    if morris["sleepiness"] > 90:
+        sleep()
+    if morris["thirst"] > 90:
+        drink()
+    if morris["hunger"] > 90:
+        eat()
 if morris["sleepiness"] > 100:
     print("Morris got too tired")
     print(colors.RED + "TRY AGAIN" + colors.RESET)
