@@ -98,6 +98,7 @@ class Dog(Animal):
     def __str__(self):
         return f"\nName: {self.name}\nSound: {self.sound}\nHeight: {self.height}\nWeight: {self.weight}\nLegs: {self.legs}\nFemale: {self.female}\nTail lenght: {self.tail_length}\nHunts sheep: {self.hunts_sheep}"
 
+
 def mate(mother, father):
     if not isinstance(mother, Dog) or not isinstance(father, Dog):
         raise ValueError("Both dogs be!")
@@ -122,3 +123,5 @@ mom = Dog("Mom", "Woof", 180, 150, 4, True, 6, False)
 dad = Dog("Dad", "Woof", 180, 150, 4, False, 6, False)
 puppy = mom + dad
 print(puppy)
+mom.make_noise()
+dad.wag_tail()
