@@ -99,10 +99,10 @@ class Dog(Animal):
         return f"\nName: {self.name}\nSound: {self.sound}\nHeight: {self.height}\nWeight: {self.weight}\nLegs: {self.legs}\nFemale: {self.female}\nTail lenght: {self.tail_length}\nHunts sheep: {self.hunts_sheep}"
 
 
-def mate(mother, father):
-    if not isinstance(mother, Dog) or not isinstance(father, Dog):
+def mate(dog1, dog2):
+    if not isinstance(dog1, Dog) or not isinstance(dog2, Dog):
         raise ValueError("Both dogs be!")
-    if mother.female == father.female:
+    if dog1.female == dog2.female:
         raise ValueError("Wrong gender")
     child_name = "Jack"
     child_sound = "Bark"
