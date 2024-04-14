@@ -52,11 +52,16 @@ class Character:
         self.attackpower = attackpower
         self.heal_power = heal_power
         self.fire_damage = fire_damage
+        self.is_stunned = False
+        self.stun_duration = 0
 
     def __repr__(self):
         return f'Name: {Color.GREY}{self.name}{Color.RESET}\nCurrent Health:{Color.GREEN} {self._current_health}\\{self.max_health}{Color.RESET}\nAttackpower: {Color.DARK_RED}{self.attackpower}{Color.RESET}\nFire power: {Color.ORANGE}{self.fire_damage}{Color.RESET}\n'
 
     def hit(self, other):
+        if self.is_stunned:
+            print(f'{Color.BLUE}{self.name} is stunned and cannot attack!{Color.RESET}\n')
+            return
         self.attackpower = random.randint(10, 15)
         print(f'{Color.GREEN}{self.name}{Color.RESET} hit {other.name} for {Color.DARK_RED}{self.attackpower} Physical{Color.DARK_RED} DMG{Color.RESET}\n')
         other.get_hit(self.attackpower)
@@ -98,9 +103,19 @@ class Mage(Character):
         self.fire_damage = fire_damage
 
     def fire_attack(self, other):
-        self.fire_damage = random.randint(10,15)
+        if self.is_stunned:
+            print(f'{Color.BLUE}{self.name} is stunned and cannot attack!{Color.RESET}\n')
+            return
+        self.fire_damage = random.randint(10, 15)
         print(f'{Color.GREEN}{self.name}{Color.RESET} hit {other.name} for {Color.ORANGE}{self.fire_damage} Fire DMG{Color.RESET}\n')
         other.fire_hit(self.fire_damage)
+
+    def update_status(self):
+        if self.stun_duration > 0:
+            self.stun_duration -= 1
+            if self.stun_duration == 0:
+                self.is_stunned = False
+
 
 class Brawler(Character):
     def __init__(self, name, max_health, _current_health, attackpower=0, fight_damage=0):
@@ -108,9 +123,23 @@ class Brawler(Character):
         self.fight_damage = fight_damage
 
     def fight_attack(self, other):
+        if self.is_stunned:
+            print(f'{Color.BLUE}{self.name} is stunned and cannot attack!{Color.RESET}\n')
+            return
         self.fight_damage = random.randint(10, 15)
-        print(f'{Color.GREEN}{self.name}{Color} hit {other.name} for {Color.RED} Fighting DMG{Color.RESET}\n')
-        other.fight_hit(self.fight_attack)
+        print(f'{Color.GREEN}{self.name}{Color.RESET} hit {other.name} for {Color.BLUE}{self.fight_damage} Fighting DMG{Color.RESET}\n')
+        other.fight_hit(self.fight_damage)
+        if random.random() < 0.2:
+            other.is_stunned = True
+            other.stun_duration = 2
+            print(f'{Color.BLUE}{other.name}is stunned!{Color.RESET}\n')
+
+    def update_status(self):
+        if self.stun_duration > 0:
+            self.stun_duration -= 1
+            if self.stun_duration == 0:
+                self.is_stunned = False
+
 
 # kaneki = Healer("Kaneki", 120, 120, 0, 20)
 tara = Mage('Tara', 100, 100)
@@ -118,7 +147,8 @@ masuke = Brawler('Masuke', 100, 100)
 # tara = Character("Tara", 100, 100, random.randint(10, 15))
 # masuke = Character("Masuke", 100, 100, random.randint(10, 15))
 turn = 0
-fire_cooldown = 0 #Lav videre på cooldown
+fighter_cooldown = 0
+fire_cooldown = 0
 tara_win = 0
 masuke_win = 0
 print(tara)
@@ -126,6 +156,8 @@ print(masuke)
 while turn < 1000:
     turn += 1
     print(f"Turn: {Color.BLUE}{turn}{Color.RESET}\n")
+    tara.update_status()
+    masuke.update_status()
     if tara.dead():
         print(f"{Color.RED}Tara has died in turn: {turn}{Color.RESET}")
         masuke_win += 1
@@ -140,14 +172,22 @@ while turn < 1000:
         masuke._current_health = masuke.max_health
         tara._current_health = tara.max_health
 
-    attackpower = random.randint(10, 20)
-
     if turn % 2 == 0:
-        tara.fire_attack(masuke)
+        if fire_cooldown == 0:
+            tara.fire_attack(masuke)
+            fire_cooldown += 3
+        else:
+            tara.hit(masuke)
+            fire_cooldown -= 1
         print(masuke)
     else:
-        masuke.hit(tara)
-        print(tara)
+        if fighter_cooldown == 0:
+            masuke.fight_attack(tara)
+            fighter_cooldown += 3
+        else:
+            masuke.hit(tara)
+            print(tara)
+            fighter_cooldown -= 1
 
 if turn == 1000:
     print(f"After {Color.BLUE}{turn}{Color.RESET} turns\n{Color.RED}Masuke{Color.RESET} has won {Color.GREEN}{masuke_win}{Color.RESET} times\n{Color.RED}Tara{Color.RESET} has won {Color.GREEN}{tara_win}{Color.RESET} times")
