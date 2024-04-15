@@ -57,7 +57,7 @@ class Character:
         self.hit_double = False
 
     def __repr__(self):
-        return f'Name: {Color.GREY}{self.name}{Color.RESET}\nCurrent Health:{Color.GREEN} {self._current_health}\\{self.max_health}{Color.RESET}\nAttackpower: {Color.DARK_RED}{self.attackpower}{Color.RESET}\nFire power: {Color.ORANGE}{self.fire_damage}{Color.RESET}\n'
+        return f'Name: {Color.GREY}{self.name}{Color.RESET}\nCurrent Health:{Color.GREEN} {self._current_health}\\{self.max_health}{Color.RESET}\nAttackpower: {Color.DARK_RED}{self.attackpower}{Color.RESET}\nFire power: {Color.ORANGE}{self.fire_damage}{Color.RESET}\nFighting power: {Color.BLUE}{self.attackpower}{Color.RESET}\n'
 
     def hit(self, other):
         if self.is_stunned:
