@@ -54,6 +54,7 @@ class Character:
         self.fire_damage = fire_damage
         self.is_stunned = False
         self.stun_duration = 0
+        self.hit_double = False
 
     def __repr__(self):
         return f'Name: {Color.GREY}{self.name}{Color.RESET}\nCurrent Health:{Color.GREEN} {self._current_health}\\{self.max_health}{Color.RESET}\nAttackpower: {Color.DARK_RED}{self.attackpower}{Color.RESET}\nFire power: {Color.ORANGE}{self.fire_damage}{Color.RESET}\n'
@@ -77,8 +78,17 @@ class Character:
             self._current_health = self.max_health
 
     def fire_hit(self, amount):
+        if self.hit_double:
+            print(f'{Color.ORANGE}{self.name} got hit double for {amount*2}!{Color.RESET}\n')
+            self._current_health -= amount * 2
+            self.hit_double = False
+            return
         print(f'{self.name} took {amount} fire damage')
         self._current_health -= amount
+
+    # def fire_hit(self, amount):
+    #     print(f'{self.name} took {amount} fire damage')
+    #     self._current_health -= amount
 
     def fight_hit(self, amount):
         print(f'{self.name} took {amount} fighting damage')
@@ -109,6 +119,9 @@ class Mage(Character):
         self.fire_damage = random.randint(10, 15)
         print(f'{Color.GREEN}{self.name}{Color.RESET} hit {other.name} for {Color.ORANGE}{self.fire_damage} Fire DMG{Color.RESET}\n')
         other.fire_hit(self.fire_damage)
+        if random.random() < 0.2:
+            other.hit_double = True
+            print(f'{Color.ORANGE}{other.name} got hit twice!{Color.RESET}')
 
     def update_status(self):
         if self.stun_duration > 0:
@@ -132,7 +145,7 @@ class Brawler(Character):
         if random.random() < 0.2:
             other.is_stunned = True
             other.stun_duration = 2
-            print(f'{Color.BLUE}{other.name}is stunned!{Color.RESET}\n')
+            print(f'\n{Color.BLUE}{other.name}is stunned!{Color.RESET}\n')
 
     def update_status(self):
         if self.stun_duration > 0:
