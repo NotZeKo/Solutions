@@ -79,16 +79,12 @@ class Character:
 
     def fire_hit(self, amount):
         if self.hit_double:
-            print(f'{Color.ORANGE}{self.name} got hit double for {amount*2}!{Color.RESET}\n')
+            print(f'{Color.ORANGE}{self.name} got hit double for {amount * 2}!{Color.RESET}\n')
             self._current_health -= amount * 2
             self.hit_double = False
             return
         print(f'{self.name} took {amount} fire damage')
         self._current_health -= amount
-
-    # def fire_hit(self, amount):
-    #     print(f'{self.name} took {amount} fire damage')
-    #     self._current_health -= amount
 
     def fight_hit(self, amount):
         print(f'{self.name} took {amount} fighting damage')
@@ -126,8 +122,7 @@ class Mage(Character):
     def update_status(self):
         if self.stun_duration > 0:
             self.stun_duration -= 1
-            if self.stun_duration == 0:
-                self.is_stunned = False
+            self.is_stunned = self.stun_duration > 0
 
 
 class Brawler(Character):
@@ -152,13 +147,22 @@ class Brawler(Character):
             self.stun_duration -= 1
             if self.stun_duration == 0:
                 self.is_stunned = False
+def character_select():
+    name = input("Enter character's name: ")
+    class_choice = input("Choose class (Mage/Brawler): ")
+    if class_choice.lower() == 'mage':
+        return Mage(name, 100, 100)
+    elif class_choice.lower() == 'brawler':
+        return Brawler(name, 100, 100)
+    else:
+        print("Invalid class choice, pick again")
+        return
 
 
-# kaneki = Healer("Kaneki", 120, 120, 0, 20)
-tara = Mage('Tara', 100, 100)
-masuke = Brawler('Masuke', 100, 100)
-# tara = Character("Tara", 100, 100, random.randint(10, 15))
-# masuke = Character("Masuke", 100, 100, random.randint(10, 15))
+tara = character_select()
+masuke = character_select()
+# tara = Mage('Tara', 100, 100)
+# masuke = Brawler('Masuke', 100, 100)
 turn = 0
 fighter_cooldown = 0
 fire_cooldown = 0
@@ -184,7 +188,8 @@ while turn < 1000:
         print(tara_win)
         masuke._current_health = masuke.max_health
         tara._current_health = tara.max_health
-
+    if tara == 'mage':
+        print("test")
     if turn % 2 == 0:
         if fire_cooldown == 0:
             tara.fire_attack(masuke)
