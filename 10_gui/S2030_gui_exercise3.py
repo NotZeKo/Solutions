@@ -52,7 +52,7 @@ main_window.geometry("900x500")
 labelframe1 = tk.LabelFrame(main_window, text="Container")
 labelframe1.grid(row=0, column=0, padx=padx, pady=pady)
 
-#TreeFrame
+#TreeFrame1
 TreeFrame = tk.Frame(labelframe1)
 TreeFrame.grid(row=0, column=0, padx=padx, pady=pady)
 
