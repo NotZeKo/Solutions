@@ -57,7 +57,7 @@ treeview_background = "#eeeeee"  # color of background in treeview
 treeview_foreground = "black"  # color of foreground in treeview
 treeview_selected = "#773333"  # color of selected row in treeview
 oddrow = "#FFCCCC"  # color of odd row in treeview (1)
-evenrow = "#C8E7F1"  # color of even row in treeview
+evenrow = "#C8E7F1"  # color of even row in treeview.
 
 test_data_list = []
 test_data_list.append(("1", "1000", "Oslo", "Windy"))
