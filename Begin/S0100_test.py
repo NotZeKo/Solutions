@@ -29,4 +29,25 @@ URL'en ser ud som https://github.com/dit_brugernavn/Solutions.git
 Derefter går du videre med den næste fil.
 """
 
-print("hej1 verden")
+
+class car1:
+    def __init__(self, wheels, speed):
+        self.wheels = wheels
+        self.speed = speed
+
+    def drive_car(self):
+        print(f"Car1 have {self.wheels} wheels and can drive {self.speed}KMH")
+        print("Wroooom")
+class car2(car1):
+    def __init__(self, wheels, speed):
+        super().__init__(wheels, speed)
+
+    def drive_car(self):
+        print(f"Car2 have {self.wheels} wheels and can drive {self.speed}KMH")
+        print("Wroooom")
+
+
+c1 = car1(4, 200)
+c2 = car2(8, 200)
+c2.drive_car()
+c1.drive_car()
