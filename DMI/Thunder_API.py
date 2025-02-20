@@ -17,6 +17,7 @@ thundermap = json.loads(thunder.text)
 print(thundermap)
 print(type(thundermap))
 
+
 for feature in thundermap['features']:
     coords = feature['geometry']['coordinates']
     swapped_coords = [coords[1], coords[0]]
