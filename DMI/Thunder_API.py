@@ -12,10 +12,7 @@ def city_selection():
     city_list = regions.json()
     while True:
         location = input("What city would you like to see? ")
-        # Find the matching city
         matching_city = next((city for city in city_list if city["navn"].lower() == location.lower()), None)
-
-        # If a match is found, print the bbox and exit the loop
         if matching_city:
             bbox_str = ", ".join(map(str, matching_city['bbox']))
             break
